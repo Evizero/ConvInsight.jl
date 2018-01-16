@@ -7,7 +7,7 @@ using HDF5
     @test lf.path == joinpath(tempdir(), "foobar.h5")
     @test lf.name == "foo !bar"
     @test lf.name == h5open(lf.path, "r") do root
-        read(attrs(root)["__NAME__"])
+        read(attrs(root)["name"])
     end
     rm(lf.path)
     path = tempname() # custom filename
@@ -15,7 +15,7 @@ using HDF5
     @test lf.path == path * ".h5"
     @test lf.name == "foo !bar"
     @test lf.name == h5open(lf.path, "r") do root
-        read(attrs(root)["__NAME__"])
+        read(attrs(root)["name"])
     end
     rm(lf.path)
 end

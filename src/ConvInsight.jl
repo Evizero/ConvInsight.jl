@@ -8,7 +8,7 @@ export
     log_metadata!,
     log_timeseries!
 
-const ATTR_NETWORKNAME = "__NAME__"
+const ATTR_NETWORKNAME = "name"
 
 const GROUP_TIMESERIES = "timeseries"
 const DATA_TIMESERIES_TIME = "time"

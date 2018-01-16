@@ -18,7 +18,6 @@ function log_metadata!(lf::Logfile, args)
     h5open(lf.path, "r+") do root
         for (name_symb, value) in args
             name = string(name_symb)
-            name == ATTR_NETWORKNAME && error("metadata attribute \"$ATTR_NETWORKNAME\" is reserved!")
             a_overwrite(root, name, value)
         end
     end
