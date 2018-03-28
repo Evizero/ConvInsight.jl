@@ -46,10 +46,10 @@ end
     log_timeseries!(lf, 6, acc = 0.5, int = 0)
     h5open(lf.path, "r") do root
         @test 2 == length(names(root["timeseries"]))
-        @test [2,5,6] == read(root["timeseries/int/iter"])
+        @test [2,5,6] == read(root["timeseries/int/steps"])
         @test [2,1,0] == read(root["timeseries/int/value"])
         @test read(root["timeseries/int/value"]) isa Vector{Int}
-        @test [5,6] == read(root["timeseries/acc/iter"])
+        @test [5,6] == read(root["timeseries/acc/steps"])
         @test [0.2,0.5] == read(root["timeseries/acc/value"])
         @test read(root["timeseries/acc/value"]) isa Vector{Float64}
         @test read(root["timeseries/int/time"])[2:3] == read(root["timeseries/acc/time"])

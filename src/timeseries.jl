@@ -1,8 +1,8 @@
-function log_timeseries!(lf::Logfile, iter::Int; args...)
-    log_timeseries!(lf, iter, args)
+function log_timeseries!(lf::Logfile, step::Int; args...)
+    log_timeseries!(lf, step, args)
 end
 
-function log_timeseries!(lf::Logfile, iter::Int, args)
+function log_timeseries!(lf::Logfile, step::Int, args)
     h5open(lf.path, "r+") do root
         # create "/timeseries" super group if it does not yet exist
         supergroup = g_create_or_get(root, GROUP_TIMESERIES)
@@ -16,7 +16,7 @@ function log_timeseries!(lf::Logfile, iter::Int, args)
             subgroup = g_create_or_get(supergroup, name)
             # push the values to the data arrays
             d_create_and_push(subgroup, DATA_TIMESERIES_TIME, time)
-            d_create_and_push(subgroup, DATA_TIMESERIES_ITER, iter)
+            d_create_and_push(subgroup, DATA_TIMESERIES_STEPS, step)
             d_create_and_push(subgroup, DATA_TIMESERIES_VALUE, value)
         end
     end
