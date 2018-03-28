@@ -13,7 +13,7 @@ struct Logfile
     path::String
 
     function Logfile(name::String, path::String = pwd())
-        path = endswith(path, "/") || isdir(path) ? joinpath(path, _make_filename(name)) : path
+        path = endswith(path, "/") || isdir(path) ? joinpath(path, _make_filename(path, name)) : path
         path = endswith(path, ".h5") ? path : path * ".h5"
         mkpath(dirname(path))
         h5open(path, "w") do root
@@ -23,11 +23,11 @@ struct Logfile
     end
 end
 
-function _make_filename(name)
+function _make_filename(dir, name)
     basename = replace(lowercase(name), r"\W", "")
     fname = basename
     i = 1
-    while isfile(fname * ".h5")
+    while isfile(joinpath(dir, fname * ".h5"))
         fname = basename * "_" * string(i)
         i += 1
     end
